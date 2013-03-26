@@ -1,16 +1,24 @@
 import random
 
-RESOURCE_SPACE = 50000
+RESOURCE_SPACE = 250000
 GRAPH_SPACE = 500
-PREDICATE_SPACE = 500
+PREDICATE_SPACE = 300
 LITERAL_LENGTH_MAX = 50
 
 def get_random_graph():
+    #skew 50% of the time I select from 1-20
+    if random.randint(0,1) == 0:
+        return "<http://foo.com/bar/graph/%s>"%random.randint(0,10)
     return "<http://foo.com/bar/graph/%s>"%random.randint(0,GRAPH_SPACE)
 def get_random_res():
     return "<http://foo.com/bar/resource/%s>"%random.randint(0,RESOURCE_SPACE)
+
 def get_random_pred():
+    #skew 50% of the time I select from 1-20
+    if random.randint(0,1) == 0:
+        return "<http://foo.com/bar/predicate/%s>"%random.randint(0,10)
     return "<http://foo.com/bar/predicate/%s>"%random.randint(0,PREDICATE_SPACE)
+
 def get_random_lit():
     t = random.randint(0,5)
     if t < 3:
@@ -33,7 +41,7 @@ def get_random_object():
     return get_random_lit()
 
 
-for x in range(int(1e6)):
+for x in range(int(3e6)):
     quad = [  get_random_res(), get_random_pred() ,get_random_object() , get_random_graph(), "."]
     print " ".join(quad)
 
